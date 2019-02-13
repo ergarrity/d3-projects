@@ -80,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function(){
             .attr("y", d => yScale(d[1]))
             .attr("height", d => h - padding - yScale(d[1]))
             .attr("width", w/dataset.length)
-            .style("fill", "rgb(51, 173, 255)")
     }
 
 });

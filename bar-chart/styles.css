@@ -9,3 +9,9 @@
   display: block;
   margin: auto
 }
+.bar {
+  fill: rgb(51, 173, 255);
+}
+.bar:hover {
+  fill: lightblue;
+}
