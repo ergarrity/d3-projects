@@ -61,14 +61,11 @@ document.addEventListener("DOMContentLoaded", function(){
             .attr("class", "bar")
             .attr("data-date", d => d[0])
             .attr("data-gdp", d => d[1])
-            .attr("x", 20)
-            .attr("y", 0)
-            .width("20")
-            .height("20")
-            .append("title")
-            .text(d => {
-                return d[0]
-            })
-
+            .attr("x", d => xScale(Date.parse(d[0])))
+            .attr("y", d => yScale(d[1]))
+            .attr("height", d => h - padding - yScale(d[1]))
+            .attr("width", w/dataset.length)
+            .style("fill", "rgb(51, 173, 255)");
     }
+
 });
