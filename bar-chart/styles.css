@@ -4,3 +4,8 @@
     font-family: roboto;
     font-weight: 100;
   }
+
+.gdp-chart {
+  display: block;
+  margin: auto
+}
