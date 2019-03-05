@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", function(){
             .attr("height", h)
             .attr("class", "scatterplot");
 
+        // Parse time data for defining Y axis
+        let timeData = dataset.map(d => d.time)
+        let specifier = "%M:%S";
+        let parsedData = timeData.map(d => d3.timeParse(specifier)(d));
+        console.log(parsedData)
+
         // Define scales
         const xScale = d3.scaleLinear()
             .domain([
@@ -53,13 +59,20 @@ document.addEventListener("DOMContentLoaded", function(){
             ])
             .range([padding, w - padding]);
 
-        const yScale = d3.scaleLinear()
-            .domain([0, d3.max(dataset, d => d.time)])
-            .range([h - padding, padding]);
+        const yScale = d3.scaleTime()
+            .domain(d3.extent(parsedData))
+            .range([h-padding, padding])
 
+
+        console.log(dataset[0])
+
+
+        
         // Define axes according to scales
         const xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
-        const yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat("%M:%S"));
+        const yAxis = d3.axisLeft(yScale)
+            .tickValues(parsedData)
+            .tickFormat((d, i) => timeData[i]);
 
         // Append x axis
         svg.append("g")
