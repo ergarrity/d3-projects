@@ -60,19 +60,24 @@ document.addEventListener("DOMContentLoaded", function(){
             .range([padding, w - padding]);
 
         const yScale = d3.scaleTime()
-            .domain(d3.extent(parsedData))
+            .domain([
+                d3.max(parsedData, d => d), 
+                d3.min(parsedData, d => d)
+            ])
             .range([h-padding, padding])
 
 
         console.log(dataset[0])
+        console.log(timeData)
 
 
         
         // Define axes according to scales
         const xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
         const yAxis = d3.axisLeft(yScale)
-            .tickValues(parsedData)
-            .tickFormat((d, i) => timeData[i]);
+            // .tickValues(parsedData)
+            // .tickFormat((d, i) => timeData[i]);
+            .ticks(d3.timeSecond.every(15))
 
         // Append x axis
         svg.append("g")
